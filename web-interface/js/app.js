@@ -42,14 +42,14 @@ function init() {
 
 // Function to check for file updates
 function checkForFileUpdate() {
-  fetch("./assets/para-urban-model.json", { method: 'HEAD' })
+  fetch("./assets/MooreParkPlan.json", { method: 'HEAD' })
       .then(response => {
         var serverTimestamp = new Date(response.headers.get("last-modified")).getTime();
-        var localTimestamp = localStorage.getItem("para-urban-model-timestamp");
+        var localTimestamp = localStorage.getItem("MooreParkPlan-timestamp");
 
         if (serverTimestamp !== localTimestamp) {
           lastModifiedTimestamp = serverTimestamp;
-          localStorage.setItem("para-urban-model-timestamp", serverTimestamp);
+          localStorage.setItem("MooreParkPlan-timestamp", serverTimestamp);
           loadScene();
         }
       })
@@ -71,7 +71,7 @@ function loadScene() {
 
   loader.load(
       // resource URL
-      "./assets/para-urban-model.json",
+      "./assets/MooreParkPlan.json",
 
       // onLoad callback
       function (obj) {
@@ -144,6 +144,6 @@ function render() {
 
 // Function to refresh the Three.js scene
 function refreshScene() {
-  localStorage.removeItem("para-urban-model-timestamp");
+  localStorage.removeItem("MooreParkPlan-timestamp");
   checkForFileUpdate();
 }

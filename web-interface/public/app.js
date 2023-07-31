@@ -10,9 +10,11 @@ function updateSliderValue(sliderId, displayId) {
 function updateValues() {
     const populationValue = parseInt(document.getElementById('populationSlider').value, 10);
     const seedValue = parseInt(document.getElementById('seedSlider').value, 10);
+    const tramValue = parseInt(document.getElementById('tramseedSlider').value, 10);
 
     document.getElementById('PopulationValue').textContent = populationValue;
     document.getElementById('SeedValue').textContent = seedValue;
+    document.getElementById('TramValue').textContent = tramValue;
 
     // Send the updated values to the server
     fetch('/updateValues', {
@@ -20,7 +22,7 @@ function updateValues() {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ EnableAnalysis: enableAnalysis, Population: populationValue, Seed: seedValue })
+        body: JSON.stringify({ EnableAnalysis: enableAnalysis, Population: populationValue, Seed: seedValue, Tram: tramValue })
     })
         .then(response => response.json())
         .then(data => console.log('Data saved:', data))
@@ -30,6 +32,7 @@ function updateValues() {
 // Attach the updateSliderValue function to the sliders' "input" events
 document.getElementById('populationSlider').addEventListener('input', () => updateSliderValue('populationSlider', 'PopulationValue'));
 document.getElementById('seedSlider').addEventListener('input', () => updateSliderValue('seedSlider', 'SeedValue'));
+document.getElementById('tramseedSlider').addEventListener('input', () => updateSliderValue('tramseedSlider', 'TramValue'));
 
 // Attach the updateValues function to the "Update Values" button click event
 document.getElementById('updateButton').addEventListener('click', updateValues);
@@ -50,5 +53,8 @@ fetch('/initialValues')
 
         document.getElementById('seedSlider').value = data.Seed;
         document.getElementById('SeedValue').textContent = data.Seed;
+
+        document.getElementById('tramseedSlider').value = data.Tram;
+        document.getElementById('TramValue').textContent = data.Tram;
     })
     .catch(error => console.error('Error fetching initial values:', error));

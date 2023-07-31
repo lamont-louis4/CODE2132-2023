@@ -38,7 +38,7 @@ app.get('/initialValues', (req, res) => {
 
 // API endpoint to update the JSON values
 app.post('/updateValues', (req, res) => {
-    const { EnableAnalysis, Population, Seed } = req.body;
+    const { EnableAnalysis, Population, Seed, Tram} = req.body;
 
     fs.readFile(jsonFilePath, 'utf8', (err, data) => {
         if (err) {
@@ -51,6 +51,7 @@ app.post('/updateValues', (req, res) => {
             jsonData.EnableAnalysis = EnableAnalysis;
             jsonData.Population = Population;
             jsonData.Seed = Seed;
+            jsonData.Tram = Tram;
 
             fs.writeFile(jsonFilePath, JSON.stringify(jsonData, null, 2), 'utf8', (err) => {
                 if (err) {
