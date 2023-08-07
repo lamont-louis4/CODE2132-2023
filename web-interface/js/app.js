@@ -42,7 +42,7 @@ function init() {
 
 // Function to check for file updates
 function checkForFileUpdate() {
-  fetch("./assets/MooreParkPlan.json", { method: 'HEAD' })
+  fetch("/web-interface/assets/MooreParkPlan.json", { method: 'HEAD' })
       .then(response => {
         var serverTimestamp = new Date(response.headers.get("last-modified")).getTime();
         var localTimestamp = localStorage.getItem("MooreParkPlan-timestamp");
@@ -71,7 +71,7 @@ function loadScene() {
 
   loader.load(
       // resource URL
-      "./assets/MooreParkPlan.json",
+      "/web-interface/assets/MooreParkPlan.json",
 
       // onLoad callback
       function (obj) {
