@@ -48,6 +48,7 @@ fetch('/initialValues')
     .then(data => {
         enableAnalysis = data.EnableAnalysis;
         document.getElementById('enableAnalysis').checked = data.EnableAnalysis;
+        
         document.getElementById('populationSlider').value = data.Population;
         document.getElementById('PopulationValue').textContent = data.Population;
 
