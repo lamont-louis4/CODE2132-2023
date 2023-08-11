@@ -3,7 +3,7 @@ const app = express();
 const path = require('path');
 const fs = require('fs');
 
-const PORT = 3000;
+const PORT = 5500;
 const jsonFilePath = path.join(__dirname, 'input.json');
 
 // Middleware to parse JSON requests

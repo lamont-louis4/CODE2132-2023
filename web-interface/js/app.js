@@ -8,6 +8,7 @@ animate();
 
 function init() {
   scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1d1a1c);
 
   // get the container element from the DOM
   container = document.getElementById('container');
@@ -42,7 +43,7 @@ function init() {
 
 // Function to check for file updates
 function checkForFileUpdate() {
-  fetch("/web-interface/assets/MooreParkPlan.json", { method: 'HEAD' })
+  fetch("..assets/MooreParkPlan.json", { method: 'HEAD' })
       .then(response => {
         var serverTimestamp = new Date(response.headers.get("last-modified")).getTime();
         var localTimestamp = localStorage.getItem("MooreParkPlan-timestamp");
@@ -71,7 +72,7 @@ function loadScene() {
 
   loader.load(
       // resource URL
-      "/web-interface/assets/MooreParkPlan.json",
+      "../assets/MooreParkPlan.json",
 
       // onLoad callback
       function (obj) {
