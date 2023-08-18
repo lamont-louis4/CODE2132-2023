@@ -43,14 +43,14 @@ function init() {
 
 // Function to check for file updates
 function checkForFileUpdate() {
-  fetch("..assets/MooreParkPlan.json", { method: 'HEAD' })
+  fetch("..assets/MoorePark.json", { method: 'HEAD' })
       .then(response => {
         var serverTimestamp = new Date(response.headers.get("last-modified")).getTime();
-        var localTimestamp = localStorage.getItem("MooreParkPlan-timestamp");
+        var localTimestamp = localStorage.getItem("MoorePark-timestamp");
 
         if (serverTimestamp !== localTimestamp) {
           lastModifiedTimestamp = serverTimestamp;
-          localStorage.setItem("MooreParkPlan-timestamp", serverTimestamp);
+          localStorage.setItem("MoorePark-timestamp", serverTimestamp);
           loadScene();
         }
       })
@@ -72,7 +72,7 @@ function loadScene() {
 
   loader.load(
       // resource URL
-      "../assets/MooreParkPlan.json",
+      "../assets/MoorePark.json",
 
       // onLoad callback
       function (obj) {
@@ -145,6 +145,6 @@ function render() {
 
 // Function to refresh the Three.js scene
 function refreshScene() {
-  localStorage.removeItem("MooreParkPlan-timestamp");
+  localStorage.removeItem("MoorePark-timestamp");
   checkForFileUpdate();
 }
