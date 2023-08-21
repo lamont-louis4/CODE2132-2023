@@ -9,7 +9,61 @@
   <style> 
 
 
+.overlay {
+  top: 0;
+  width: 0;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border: #f1f1f1;
+  background-color: #f1f1f1;
+  overflow-x: hidden;
+  transition: 0.5s;
+  white-space: nowrap;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
 
+ .NavControl .overlay {
+  width: 0%;
+ }
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
 
 
     /* for full screen canvas, use these styles */
@@ -42,71 +96,38 @@
       z-index: 2000;
     }
 
-    input[type="range"] 
-    {
-      accent-color: #d2ad75;
-      width: 100%;
-    }
 
-    #bottombar{  
 
-      color: #d2ad75;
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 10%;
-      width: 100%;
-      pointer-events: auto; /* Allow clicks to pass through to the canvas */
-      background-color: rgba(29, 26, 28, 0.5);
-      backdrop-filter: blur(5px);
-
-      justify-content: space-evenly;
-      display: flex;
-      gap: 10%;
-      color: #F5F5F4;
-      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-      font-weight: 300;
-      z-index: 1;
+    .bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #F5F5F4;
+    margin: 6px 0;
+    transition: 0.4s;
     
-    }
-
-
-
-/* CSS */
-  button {
-    align-items: center;
-    appearance: none;
-    background-color: #d2ad75;
-    border-radius: 24px;
-    border-style: none;
-    box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px,rgba(0, 0, 0, .14) 0 6px 10px 0,rgba(0, 0, 0, .12) 0 1px 18px 0;
-    box-sizing: border-box;
-    color: #3c4043;
-    cursor: pointer;
-    display: inline-flex;
-    fill: currentcolor;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    height: 20px;
-    justify-content: center;
-    letter-spacing: .25px;
-    line-height: normal;
-    max-width: 100%;
-    overflow: visible;
-    padding: 2px 24px;
-    position: relative;
-    text-align: center;
-    text-transform: none;
-    transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    width: auto;
-    will-change: transform,opacity;
-    z-index: 0;
+   } 
+   .change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+    background-color: #818181;
+   } 
+.change .bar2 {
+  opacity: 0;
+  
+}
+ .change .bar3 {
+  transform: translate(0, -11px) rotate(45deg);
+  background-color: #818181;
   }
+
+  .menu-container {
+  display: inline-block;
+  cursor: pointer;
+  left: 13px;
+  position: absolute;
+  top: 13px;
+  z-index: 2000;
+ }   
+
 
 button:hover {
   background: #F6F9FE;
@@ -125,42 +146,27 @@ button:focus {
 
 
     
-   #left-bar{
-    display: flex;
-    position: relative;
-    color: #d2ad75;
-    left: 0;
-    align-items: center;
-    
-   
-    z-index: -1;
-    }
 
-   #right-bar{
-    color: #d2ad75;
-    right: 0;
-    position: relative;
-    margin-top: auto;
-    margin-bottom: auto;
-   }
 
     #top-menu{
       background-color: rgba(29, 26, 28, 0.5);
       backdrop-filter: blur(5px);
      position: absolute;
+     left: 65px;
+   
      top: 0;
-     width: 100%;
+     width: 95%;
      height: 7%;
      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     } 
 
     
 
-    /* Style 7
+    /* Title Block Styling
    ----------------------------- */
     .seven h1 {
     text-align: center;
-        font-size:30px; font-weight:100; color:#d2ad75; letter-spacing:1px;
+        font-size:30px; font-weight:100; color:#F5F9E9; letter-spacing:1px;
         text-transform: uppercase;
         display: grid;
         grid-template-columns: 1fr max-content 1fr;
@@ -175,7 +181,7 @@ button:focus {
         border-bottom: 1px solid #f1f1f1;
         border-top: 1px solid #f1f1f1;
         height: 5px;
-        background-color: #d2ad75;
+        background-color: #006E90;
     }
     
   </style>
@@ -187,36 +193,30 @@ button:focus {
 <!-- this is the container where the three.js scene will go -->
 <div id="container">
 
-  <div id="bottombar">
 
-    <div id="left-bar">
-      <label for="enableAnalysis">Enable Analysis:</label>
-      <input type="checkbox" id="enableAnalysis">
+<div id="top-menu" class="seven">
+
+
+    <h1>Solar Decathlon House Visualiser</h1> </div>
+    <div class="menu-container" onclick="myFunction(this);NavController()">
+      <div class="bar1"></div>
+      <div class="bar2"></div>
+      <div class="bar3"></div>
     </div>
-    
-    <p class="slider">Population Number: <span id="PopulationValue">0</span><br><br>
-    <input type="range" min="500" max="20000" value="0" step="1" id="populationSlider">
-    </p>
-
-    <p>Bus Seed Number: <span id="SeedValue">0</span><br><br>
-    <input type="range" min="0" max="100" value="0" step="1" id="seedSlider">
-    </p>
-    
-    <p>Tram Seed Number: <span id="TramValue">0</span><br><br>
-    <input type="range" min="0" max="55" value="0" step="1" id="tramseedSlider">
-    </p>
-
-
-   <div id="right-bar">
-     <button id="updateButton">Update Values</button>
-     <br><br>
-     <button id="refreshButton" onclick="refreshScene()">Refresh Scene</button>
-   </div>
 
   </div>
 
-  <div id="top-menu" class="seven">
-    <h1>Moore Park Site Designer</h1> </div>
+  
+
+</div>
+
+
+
+<div id="myNav" class="overlay" >
+  <div class="overlay-content">
+    <a href="#" onclick="javascript:location.href='index.html'" >Model Viewer</a>
+    <a href="#" onclick="javascript:location.href='documentation.html'" >Documentation</a>
+  </div>
 </div>
 
 
@@ -228,5 +228,26 @@ button:focus {
 
 <!-- this is your app's js file -->
 <script src="../js/app.js"></script>
+
+<script> //button script
+  function myFunction(x) {
+    x.classList.toggle("change");
+  }
+  </script>
+
+
+<script> //menu scripts
+  function NavController() {
+
+    if (document.getElementById("myNav").style.width <= "1%")
+    {
+      document.getElementById("myNav").style.width = "20%";
+    }
+    else{
+      document.getElementById("myNav").style.width = "0%";
+    }
+  }
+  
+  </script>
 </body>
 </html>

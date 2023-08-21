@@ -6,6 +6,7 @@ console.log(window.location.href);
 init();
 animate();
 
+
 function init() {
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x1d1a1c);
@@ -21,15 +22,18 @@ function init() {
   container.appendChild(renderer.domElement);
 
   // create camera (default field of view is 60)
-  camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 0.1, 10000);
+  camera = new THREE.PerspectiveCamera(60, container.clientWidth / container.clientHeight, 1, 1000);
   camera.position.set(60, 90, 120); // starting position of the camera
-
+  
+  
   // camera controls to allow for orbiting
   controls = new THREE.OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true; // creates a softer orbiting feel
   controls.dampingFactor = 0.1; // determines how soft
   controls.screenSpacePanning = true;
   controls.maxPolarAngle = Math.PI / 2;
+
+  
 
   // this is only required when using RectAreaLight
   THREE.RectAreaLightUniformsLib.init();
@@ -43,14 +47,14 @@ function init() {
 
 // Function to check for file updates
 function checkForFileUpdate() {
-  fetch("..assets/MoorePark.json", { method: 'HEAD' })
+  fetch("..assets/EggHouse.json", { method: 'HEAD' })
       .then(response => {
         var serverTimestamp = new Date(response.headers.get("last-modified")).getTime();
-        var localTimestamp = localStorage.getItem("MoorePark-timestamp");
+        var localTimestamp = localStorage.getItem("EggHouse-timestamp");
 
         if (serverTimestamp !== localTimestamp) {
           lastModifiedTimestamp = serverTimestamp;
-          localStorage.setItem("MoorePark-timestamp", serverTimestamp);
+          localStorage.setItem("EggHouse-timestamp", serverTimestamp);
           loadScene();
         }
       })
@@ -72,7 +76,7 @@ function loadScene() {
 
   loader.load(
       // resource URL
-      "../assets/MoorePark.json",
+      "../assets/EggHouse.json",
 
       // onLoad callback
       function (obj) {
@@ -145,6 +149,6 @@ function render() {
 
 // Function to refresh the Three.js scene
 function refreshScene() {
-  localStorage.removeItem("MoorePark-timestamp");
+  localStorage.removeItem("EggHouse-timestamp");
   checkForFileUpdate();
 }

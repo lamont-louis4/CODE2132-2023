@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urban Designer</title>
+  
+  
+  <style> 
+
+
+.overlay {
+  top: 0;
+  width: 0;
+  height: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  border: #f1f1f1;
+  background-color: #f1f1f1;
+  overflow-x: hidden;
+  transition: 0.5s;
+  white-space: nowrap;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.overlay-content {
+  position: relative;
+  top: 25%;
+  width: 100%;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.overlay a {
+  padding: 8px;
+  text-decoration: none;
+  font-size: 36px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+  color: #f1f1f1;
+}
+
+.overlay .closebtn {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+  font-size: 40px;
+  top: 15px;
+  right: 35px;
+  }
+}
+
+    /* for full screen canvas, use these styles */
+    html, body {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+    }
+    /* style the three.js container however your want */
+
+    
+    #container {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+      background-color: #1d1a1c;
+    }
+    /* removes outline when clicking on three.js canvas */
+    canvas:focus {
+      outline: none;
+    }
+    /* the style of the progress text */
+    #progress {
+      position: absolute;
+      top: 50px;
+      margin: 6px;
+      color: grey;
+      font-family: 'Courier New', Courier, monospace;
+      z-index: 2000;
+    }
+
+
+
+    .bar1, .bar2, .bar3 {
+    width: 35px;
+    height: 5px;
+    background-color: #F5F5F4;
+    margin: 6px 0;
+    transition: 0.4s;
+    
+   } 
+   .change .bar1 {
+    transform: translate(0, 11px) rotate(-45deg);
+    background-color: #818181;
+   } 
+.change .bar2 {
+  opacity: 0;
+  
+}
+ .change .bar3 {
+  transform: translate(0, -11px) rotate(45deg);
+  background-color: #818181;
+  }
+
+  .menu-container {
+  display: inline-block;
+  cursor: pointer;
+  left: 13px;
+  position: absolute;
+  top: 13px;
+  z-index: 2000;
+ }   
+
+#top-menu{
+    background-color: rgba(29, 26, 28, 0.5);
+    backdrop-filter: blur(5px);
+    position: absolute;
+    left: 65px;
+    top: 0;
+    width: 100%;
+    height: 7%;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    width: 95%;
+} 
+
+    /* Title Block Styling
+   ----------------------------- */
+    .seven h1 {
+      text-align: center;
+      font-size:30px; font-weight:100; color:#F5F9E9; letter-spacing:1px;
+      text-transform: uppercase;
+      display: grid;
+      grid-template-columns: 1fr max-content 1fr;
+      grid-template-rows: 27px 0;
+      grid-gap: 20px;
+      align-items: center;
+        
+    }
+
+    .seven h1:after,.seven h1:before {
+        content: " ";
+        display: block;
+        border-bottom: 1px solid #f1f1f1;
+        border-top: 1px solid #f1f1f1;
+        height: 5px;
+        background-color: #006E90;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+
+.intro { 
+  text-align: center; 
+  font-family: Arial;
+}
+
+h2 { 
+  font-size: 36px;
+}
+
+p { 
+  font-size: 14pt;
+}
+
+#image-gallery { 
+  width: 55%; 
+  margin: 0 auto;
+  padding-top: 5%;
+}
+
+#current-image { 
+  width: 100%;
+} 
+
+#image-thumbs { 
+  display: flex; 
+  justify-content: center; 
+  margin-top: 20px;
+}
+
+.thumb
+{ 
+  width: 100px; 
+  height: 80px; 
+  object-fit: cover; 
+  margin-right: 10px; 
+  cursor: pointer;
+  zoom: 100%;
+}
+
+#Instructions
+{
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #f1f1f1;
+  text-align: center;
+  font-weight: 100;
+  font-style: italic;
+  font-size: small;
+}
+
+  </style>
+</head>
+<body>
+
+<!-- this is the container where the three.js scene will go -->
+<div id="container">
+
+  <div id="top-menu" class="seven">
+      <h1>Documentation</h1> 
+  </div>
+
+  <div class="menu-container" onclick="myFunction(this);NavController()">
+    <div class="bar1"></div>
+    <div class="bar2"></div>
+    <div class="bar3"></div>
+  </div>
+
+  <div id="image-gallery">
+    <img id="current-image" src="images/image1.jpg" alt="Image 1">
+    <h3 id="Instructions">Click on the images to view:</h3>
+     <div id="image-thumbs">
+      </div>
+  </div>
+
+<div id="myNav" class="overlay" >
+  <div class="overlay-content">
+    <a href="#" onclick="javascript:location.href='index.html'" >Model Viewer</a>
+    <a href="#" onclick="javascript:location.href='documentation.html'" >Documentation</a>
+  </div>
+</div>
+
+</div>
+
+<script> //button script
+  function myFunction(x) {
+    x.classList.toggle("change");
+  }
+  </script>
+
+  <script>  //gallery script
+  var currentImage = document.getElementById("current-image");
+  var imageThumbs = document.getElementById("image-thumbs");
+  for (var i = 1; i <= 12; i++) 
+  {
+      var thumb = document.createElement("img");
+      thumb.src = "images/image" + i + ".jpg";
+      thumb.alt = "Image " + i;
+      thumb.classList.add("thumb");
+      imageThumbs.appendChild(thumb);
+
+      thumb.addEventListener(
+      "click", function() 
+        {
+          currentImage.src = this.src;
+          currentImage.alt = this.alt;
+        }
+      );
+  }
+  </script> 
+
+<script> //menu scripts
+    function NavController() {
+
+if (document.getElementById("myNav").style.width <= "1%")
+{
+  document.getElementById("myNav").style.width = "20%";
+}
+else{
+  document.getElementById("myNav").style.width = "0%";
+}
+}
+  </script>
+
+</body>
+</html>
